@@ -1,0 +1,6 @@
+comment,rating
+"Great event, loved the speakers!",5
+"Food was cold.",2
+"Very well organized.",4
+"Too crowded.",3
+"Staff was helpful.",5python event_report_generator.py
