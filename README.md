@@ -5,12 +5,30 @@ FastAPI backend for AI-powered event management and document generation.
 ## 📁 Project Structure
 
 ```
-amd/
-├── main.py              # FastAPI application and endpoints
-├── llm_service.py       # OpenAI integration service
-├── requirements.txt     # Python dependencies
-├── .env.example         # Environment variables template
-└── README.md           # This file
+Project Structure
+
+amd/              # Local environment variables (not committed)
+├── .env.example       # Template for environment variables
+├── .gitignore         # Git ignore rules
+├── backend/
+│   ├── event_report_generator.py
+│   ├── feedback_analyzer.py
+│   ├── image_caption_service.py
+│   ├── list_groq_models.py
+│   ├── llm_service.py
+│   ├── main.py
+│   ├── ocr_service.py
+│   ├── test_api.py
+│   ├── rag/
+│   │   └── source_docs/
+│   └── services/
+│       ├── groq_embedder.py
+│       ├── rag_service.py
+│       ├── test_rag.py
+│       └── __pycache__/
+├── feedback.csv
+├── README.md
+├── requirements.txt
 ```
 
 ## 🚀 Installation Steps
