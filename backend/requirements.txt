@@ -1,0 +1,31 @@
+# Flask Backend Requirements
+flask==3.0.0
+flask-cors==4.0.0
+python-dotenv==1.0.1
+
+# MongoDB
+pymongo==4.6.1
+motor==3.3.2
+
+# AI/ML
+groq==0.14.0
+
+# RAG
+faiss-cpu==1.7.4
+numpy==1.24.3
+
+# Data Processing
+pandas==2.1.4
+aiofiles==23.2.1
+
+# Authentication
+PyJWT==2.8.0
+bcrypt==4.1.2
+
+# File Handling
+python-multipart==0.0.6
+werkzeug==3.0.1
+
+# OCR (Optional for later)
+# pytesseract==0.3.10
+# Pillow==10.1.0
