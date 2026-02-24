@@ -1,0 +1,459 @@
+/* EventReportGenerator Component Specific Styles */
+
+.event-report-section {
+  background: linear-gradient(135deg, #667eea0d 0%, #764ba20d 100%);
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+.event-report-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+}
+
+.event-report-section::after {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(118, 75, 162, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: rotate 25s linear infinite reverse;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Container */
+.event-report-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Section Title Animation */
+.event-report-section .display-5 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  animation: slideInDown 0.8s ease;
+}
+
+.event-report-section .display-5 i {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Lead Text Animation */
+.event-report-section .lead {
+  animation: fadeIn 1s ease 0.3s both;
+  color: #4a5568 !important;
+  font-size: 1.25rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Main Card Styling */
+.event-report-section .card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+  animation: fadeInUp 0.8s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.event-report-section .card:hover {
+  box-shadow: 0 30px 60px rgba(102, 126, 234, 0.2) !important;
+  border-color: #667eea;
+  transform: translateY(-5px);
+}
+
+.event-report-section .card-body {
+  padding: 2.5rem !important;
+}
+
+/* Form Labels */
+.event-report-section .form-label {
+  color: #2d3748;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.event-report-section .form-label i {
+  color: #667eea;
+  font-size: 1.2rem;
+}
+
+/* Form Controls */
+.event-report-section .form-control,
+.event-report-section .form-select {
+  border: 2px solid #e2e8f0;
+  border-radius: 15px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.event-report-section .form-control:focus,
+.event-report-section .form-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+.event-report-section .form-control:hover,
+.event-report-section .form-select:hover {
+  border-color: #764ba2;
+}
+
+/* Textarea specific */
+.event-report-section textarea.form-control {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* Form Text */
+.event-report-section .form-text {
+  color: #718096 !important;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+/* File Input Styling */
+.event-report-section input[type="file"] {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.event-report-section input[type="file"]::file-selector-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  margin-right: 1rem;
+  transition: all 0.3s ease;
+}
+
+.event-report-section input[type="file"]::file-selector-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Badge for image count */
+.event-report-section .badge {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Submit Button */
+.event-report-section .btn-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.event-report-section .btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  z-index: -1;
+}
+
+.event-report-section .btn-primary:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.event-report-section .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.event-report-section .btn-primary:active {
+  transform: translateY(0);
+}
+
+.event-report-section .btn-primary:disabled {
+  background: linear-gradient(135deg, #a0aec0, #718096);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading Spinner */
+.event-report-section .spinner-border {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-width: 0.2em;
+  margin-right: 0.5rem;
+}
+
+/* Alert Messages */
+.event-report-section .alert {
+  border-radius: 15px;
+  padding: 1rem 1.5rem;
+  border: none;
+  animation: slideInDown 0.5s ease;
+}
+
+.event-report-section .alert-success {
+  background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+  color: #22543d;
+}
+
+.event-report-section .alert-danger {
+  background: linear-gradient(135deg, #fed7d7, #feb2b2);
+  color: #742a2a;
+}
+
+/* Result Card */
+.event-report-section .card:last-of-type {
+  margin-top: 2rem;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.event-report-section .card-header {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+}
+
+.event-report-section .card-header h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.event-report-section .card-header h5::before {
+  content: '📄';
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Preformatted Text for Results */
+.event-report-section pre {
+  background: #1a202c !important;
+  color: #e2e8f0;
+  padding: 1.5rem !important;
+  border-radius: 15px !important;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-height: 400px;
+  overflow: auto;
+  border: 1px solid #2d3748;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Scrollbar for Pre */
+.event-report-section pre::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.event-report-section pre::-webkit-scrollbar-track {
+  background: #2d3748;
+  border-radius: 10px;
+}
+
+.event-report-section pre::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 10px;
+}
+
+.event-report-section pre::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .event-report-section {
+    padding: 4rem 0;
+  }
+  
+  .event-report-section .display-5 {
+    font-size: 2rem;
+  }
+  
+  .event-report-section .lead {
+    font-size: 1rem;
+  }
+  
+  .event-report-section .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .event-report-section .form-label {
+    font-size: 1rem;
+  }
+  
+  .event-report-section .btn-primary {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .event-report-section pre {
+    font-size: 0.8rem;
+    padding: 1rem !important;
+  }
+}
+
+/* Tablet Adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .event-report-section .display-5 {
+    font-size: 2.5rem;
+  }
+  
+  .event-report-section .card-body {
+    padding: 2rem !important;
+  }
+}
+
+/* Animation for form elements */
+.event-report-section .form-group {
+  animation: fadeInLeft 0.5s ease;
+  animation-fill-mode: both;
+}
+
+.event-report-section .form-group:nth-child(1) { animation-delay: 0.1s; }
+.event-report-section .form-group:nth-child(2) { animation-delay: 0.2s; }
+.event-report-section .form-group:nth-child(3) { animation-delay: 0.3s; }
+.event-report-section .form-group:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Success Check Animation */
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.event-report-section .alert-success i {
+  animation: checkmark 0.5s ease;
+}
+
+/* File upload area highlight */
+.event-report-section input[type="file"]:hover {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.02);
+}
+
+/* Disabled state */
+.event-report-section .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Focus visible outline for accessibility */
+.event-report-section .form-control:focus-visible,
+.event-report-section .form-select:focus-visible,
+.event-report-section .btn:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}

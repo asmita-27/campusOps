@@ -1,0 +1,353 @@
+/* Navbar Component Specific Styles */
+
+.custom-navbar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  padding: 1rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+/* Navbar scroll effect */
+.custom-navbar.navbar-scrolled {
+  padding: 0.5rem 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95)) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Brand/Logo styling */
+.custom-navbar .navbar-brand {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff !important;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.custom-navbar .navbar-brand i {
+  background: linear-gradient(135deg, #ffd700, #ffaa00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-right: 0.5rem;
+  font-size: 1.8rem;
+  transition: all 0.3s ease;
+}
+
+.custom-navbar .navbar-brand:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+.custom-navbar .navbar-brand:hover i {
+  transform: rotate(360deg);
+  background: linear-gradient(135deg, #ffaa00, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Navbar toggler (mobile menu button) */
+.custom-navbar .navbar-toggler {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.custom-navbar .navbar-toggler:hover {
+  transform: scale(1.05);
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.custom-navbar .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.3);
+  outline: none;
+}
+
+.custom-navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Navigation links */
+.custom-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 600;
+  padding: 0.75rem 1.2rem !important;
+  margin: 0 0.2rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  position: relative;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+}
+
+.custom-navbar .nav-link i {
+  margin-right: 0.4rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  color: #ffd700;
+}
+
+/* Hover effect for nav links */
+.custom-navbar .nav-link:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.custom-navbar .nav-link:hover i {
+  transform: scale(1.2) rotate(5deg);
+  color: #ffd700;
+}
+
+/* Active nav link (when section is in view) */
+.custom-navbar .nav-link.active {
+  color: #fff !important;
+  background: rgba(255, 215, 0, 0.2);
+  border-bottom: 3px solid #ffd700;
+  border-radius: 50px 50px 0 0;
+}
+
+.custom-navbar .nav-link.active i {
+  color: #ffd700;
+  transform: scale(1.1);
+}
+
+/* Underline animation for nav links (desktop) */
+@media (min-width: 992px) {
+  .custom-navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ffd700, #ffaa00);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    opacity: 0;
+  }
+
+  .custom-navbar .nav-link:hover::after {
+    width: 80%;
+    opacity: 1;
+  }
+
+  .custom-navbar .nav-link.active::after {
+    width: 80%;
+    opacity: 1;
+    background: linear-gradient(90deg, #ffaa00, #ffd700);
+  }
+}
+
+/* Dropdown menu (if needed in future) */
+.custom-navbar .dropdown-menu {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-navbar .dropdown-item {
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.custom-navbar .dropdown-item i {
+  margin-right: 0.5rem;
+  color: #ffd700;
+  width: 20px;
+}
+
+.custom-navbar .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transform: translateX(5px);
+}
+
+/* Mobile menu styles */
+@media (max-width: 991px) {
+  .custom-navbar .navbar-collapse {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideDown 0.3s ease;
+  }
+
+  .custom-navbar .nav-link {
+    padding: 0.8rem 1.5rem !important;
+    margin: 0.2rem 0;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .custom-navbar .nav-link i {
+    margin-right: 0.5rem;
+  }
+
+  .custom-navbar .nav-link.active {
+    border-radius: 10px;
+    border-bottom: none;
+    border-left: 4px solid #ffd700;
+  }
+}
+
+/* Navbar shadow on scroll */
+.custom-navbar.navbar-sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Pulse animation for brand on page load */
+@keyframes brandPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.custom-navbar .navbar-brand {
+  animation: brandPulse 1s ease 0.5s;
+}
+
+/* Loading state for navbar (if needed) */
+.custom-navbar.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Scroll progress indicator (optional) */
+.custom-navbar .scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd700, #ffaa00);
+  transition: width 0.1s ease;
+  width: 0;
+}
+
+/* Enhanced hover effect for nav items */
+.custom-navbar .nav-item {
+  position: relative;
+}
+
+/* Tooltip for nav items (optional) */
+.custom-navbar .nav-link[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.3rem 0.8rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  margin-bottom: 5px;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive font sizes */
+@media (max-width: 768px) {
+  .custom-navbar .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .custom-navbar .navbar-brand i {
+    font-size: 1.5rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .custom-navbar {
+    display: none;
+  }
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+  .custom-navbar {
+    background: linear-gradient(135deg, #4a5568, #2d3748) !important;
+  }
+}
+
+/* Accessibility focus styles */
+.custom-navbar .nav-link:focus-visible,
+.custom-navbar .navbar-toggler:focus-visible,
+.custom-navbar .navbar-brand:focus-visible {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Ripple effect on click (optional) */
+.custom-navbar .nav-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-navbar .nav-link::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+  z-index: 0;
+}
+
+.custom-navbar .nav-link:active::before {
+  width: 200px;
+  height: 200px;
+}
