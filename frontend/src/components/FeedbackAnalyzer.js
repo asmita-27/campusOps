@@ -33,7 +33,6 @@ function FeedbackAnalyzer() {
       const formData = new FormData();
       formData.append('file', file);
 
-      // Call Flask backend API
       const response = await fetch('http://localhost:8000/api/feedback/analyze', {
         method: 'POST',
         body: formData,
@@ -47,163 +46,153 @@ function FeedbackAnalyzer() {
       setLoading(false);
     }
   };
-
+const analysis = result?.data || result;
   return (
-    <section id="feedback" className="feedback-analyzer-section py-5">
-      <div className="container">
-        <div className="row mb-5">
-          <div className="col-lg-8 mx-auto text-center">
-            <h2 className="display-5 fw-bold mb-3">
-              <i className="fas fa-comments me-2"></i>
-              Feedback Analyzer
-            </h2>
-            <p className="lead">
-              Upload your feedback CSV file and get AI-powered insights on satisfaction, praises, and issues
-            </p>
-          </div>
+    <section className="feedback-analyzer-section">
+      <div className="feedback-analyzer-wrapper">
+
+        {/* Header */}
+        <div className="feedback-header text-center mb-4">
+          <h2 className="fw-bold mb-3">
+            <i className="fas fa-comments me-2"></i>
+            Feedback Analyzer
+          </h2>
+          <p className="text-muted">
+            Upload your feedback CSV file and get AI-powered insights.
+          </p>
         </div>
 
-        <div className="row">
-          <div className="col-lg-8 mx-auto">
-            <div className="card shadow-lg">
-              <div className="card-body">
-                <form onSubmit={handleSubmit}>
-                  {/* File Upload */}
-                  <div className="form-group mb-4">
-                    <label htmlFor="feedbackFile" className="form-label fw-bold">
-                      <i className="fas fa-file-csv me-2"></i>
-                      Upload Feedback CSV
-                    </label>
-                    <input
-                      type="file"
-                      className="form-control"
-                      id="feedbackFile"
-                      accept=".csv"
-                      onChange={handleFileChange}
-                      required
-                    />
-                    <small className="form-text">
-                      CSV file should contain feedback data with columns for responses
-                    </small>
-                    {file && (
-                      <div className="mt-3">
-                        <span className="badge">
-                          <i className="fas fa-check-circle me-2"></i>
-                          {file.name} ({(file.size / 1024).toFixed(2)} KB)
-                        </span>
-                      </div>
-                    )}
-                  </div>
+        <div className="card shadow-lg feedback-main-card">
+          <div className="card-body">
 
-                  {/* Info Box */}
-                  <div className="alert alert-info" role="alert">
-                    <i className="fas fa-info-circle me-2"></i>
-                    <strong>Expected CSV Format:</strong> Your CSV should include columns such as 
-                    'feedback', 'rating', 'comments', etc. The analyzer will extract key insights automatically.
-                  </div>
+            {/* Upload Form */}
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="form-label fw-bold">
+                  <i className="fas fa-file-csv me-2"></i>
+                  Upload Feedback CSV
+                </label>
 
-                  {/* Submit Button */}
-                  <div className="d-grid">
-                    <button
-                      type="submit"
-                      className="btn btn-success btn-lg"
-                      disabled={loading || !file}
-                    >
-                      {loading ? (
-                        <>
-                          <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                          Analyzing Feedback...
-                        </>
-                      ) : (
-                        <>
-                          <i className="fas fa-chart-line me-2"></i>
-                          Analyze Feedback
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </form>
+                <input
+                  type="file"
+                  className="form-control"
+                  accept=".csv"
+                  onChange={handleFileChange}
+                  required
+                />
 
-                {/* Error Display */}
-                {error && (
-                  <div className="alert alert-danger" role="alert">
-                    <i className="fas fa-exclamation-circle me-2"></i>
-                    {error}
-                  </div>
-                )}
-
-                {/* Result Display */}
-                {result && (
-                  <div className="mt-5">
-                    <div className="alert alert-success" role="alert">
-                      <i className="fas fa-check-circle me-2"></i>
-                      Analysis completed successfully!
-                    </div>
-                    
-                    <div className="row g-3">
-                      {/* Satisfaction Score */}
-                      <div className="col-md-4">
-                        <div className="card text-center border-success h-100">
-                          <div className="card-body">
-                            <h6 className="text-muted mb-2">
-                              <i className="fas fa-star text-success me-1"></i>
-                              Satisfaction Score
-                            </h6>
-                            <h2 className="text-success fw-bold mb-0">
-                              {result.satisfaction || 'N/A'}
-                            </h2>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Top Praises */}
-                      <div className="col-md-4">
-                        <div className="card text-center border-primary h-100">
-                          <div className="card-body">
-                            <h6 className="text-muted mb-2">
-                              <i className="fas fa-heart text-primary me-1"></i>
-                              Top Praises
-                            </h6>
-                            <h2 className="text-primary fw-bold mb-0">
-                              {result.praises?.length || 0}
-                            </h2>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Issues Found */}
-                      <div className="col-md-4">
-                        <div className="card text-center border-warning h-100">
-                          <div className="card-body">
-                            <h6 className="text-muted mb-2">
-                              <i className="fas fa-exclamation-triangle text-warning me-1"></i>
-                              Issues Found
-                            </h6>
-                            <h2 className="text-warning fw-bold mb-0">
-                              {result.issues?.length || 0}
-                            </h2>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Detailed Results */}
-                    <div className="card mt-4">
-                      <div className="card-header">
-                        <h5 className="mb-0 text-white">Detailed Analysis</h5>
-                      </div>
-                      <div className="card-body p-0">
-                        <pre className="bg-light p-4 rounded-3 m-0">
-                          {JSON.stringify(result, null, 2)}
-                        </pre>
-                      </div>
-                    </div>
+                {file && (
+                  <div className="mt-3">
+                    <span className="badge bg-success">
+                      {file.name} ({(file.size / 1024).toFixed(2)} KB)
+                    </span>
                   </div>
                 )}
               </div>
-            </div>
+
+              <div className="alert alert-info">
+                Expected CSV format should include columns like
+                <strong> feedback, rating, comments</strong>.
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-success btn-lg w-100"
+                disabled={loading || !file}
+              >
+                {loading ? 'Analyzing Feedback...' : 'Analyze Feedback'}
+              </button>
+            </form>
+
+            {/* Error */}
+            {error && (
+              <div className="alert alert-danger mt-4">
+                {error}
+              </div>
+            )}
+
+            {/* RESULTS DASHBOARD */}
+            {result && (
+              <div className="feedback-results">
+
+                <div className="alert alert-success">
+                  Analysis completed successfully!
+                </div>
+
+                {/* Top Stats */}
+                <div className="feedback-stats-grid">
+  <div className="stat-card border-success">
+    <h6>Satisfaction Score</h6>
+    <h2 className="text-success">
+      {analysis.satisfaction_score || 'N/A'}
+    </h2>
+  </div>
+
+  <div className="stat-card border-primary">
+    <h6>Top Praises</h6>
+    <h2 className="text-primary">
+      {analysis.key_themes?.length || 0}
+    </h2>
+  </div>
+
+  <div className="stat-card border-warning">
+    <h6>Issues Found</h6>
+    <h2 className="text-warning">
+      {analysis.top_issues?.length || 0}
+    </h2>
+  </div>
+</div>
+
+                {/* Analysis Cards */}
+                <div className="feedback-analysis">
+
+  {analysis.summary && (
+    <div className="analysis-card">
+      <h5>📊 Overall Summary</h5>
+      <p>{analysis.summary}</p>
+    </div>
+  )}
+
+  {analysis.key_themes && (
+    <div className="analysis-card">
+      <h5>✨ Key Themes</h5>
+      <div className="tag-container">
+        {analysis.key_themes.map((theme, i) => (
+          <span key={i} className="theme-tag">{theme}</span>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {analysis.top_issues && (
+    <div className="analysis-card">
+      <h5>⚠️ Top Issues</h5>
+      <ul>
+        {analysis.top_issues.map((issue, i) => (
+          <li key={i}>{issue}</li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  {analysis.recommendations && (
+    <div className="analysis-card">
+      <h5>💡 Recommendations</h5>
+      <ul>
+        {analysis.recommendations.map((rec, i) => (
+          <li key={i}>{rec}</li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+</div>
+              </div>
+            )}
+
           </div>
         </div>
+
       </div>
     </section>
   );

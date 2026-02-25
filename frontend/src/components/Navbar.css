@@ -110,7 +110,7 @@
 .custom-navbar .nav-link.active {
   color: #fff !important;
   background: rgba(255, 215, 0, 0.2);
-  border-bottom: 3px solid #ffd700;
+  /* border-bottom: 3px solid #ffd700; */
   border-radius: 50px 50px 0 0;
 }
 

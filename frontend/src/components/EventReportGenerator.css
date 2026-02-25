@@ -1,6 +1,6 @@
 /* EventReportGenerator Component Specific Styles */
 
-.event-report-section {
+ .event-report-section {
   background: linear-gradient(135deg, #667eea0d 0%, #764ba20d 100%);
   position: relative;
   overflow: hidden;
@@ -44,7 +44,7 @@
 }
 
 /* Container */
-.event-report-section .container {
+ .event-report-section .container {
   position: relative;
   z-index: 1;
 }
@@ -126,6 +126,7 @@
 
 .event-report-section .card-body {
   padding: 2.5rem !important;
+  width: 100%;
 }
 
 /* Form Labels */
@@ -256,6 +257,27 @@
 .event-report-section .btn-primary:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+/* When used inside a feature tool wrapper, flatten the background and layout
+   so the page gradient and outer card provide the main visual framing. */
+
+.feature-tool-card .event-report-section {
+  background: transparent;
+  min-height: auto;
+  padding: 0;
+  display: block;
+  align-items: stretch;
+}
+
+.feature-tool-card .event-report-section::before,
+.feature-tool-card .event-report-section::after {
+  content: none;
+}
+
+.feature-tool-card .event-report-section .container {
+  max-width: 100%;
+  padding: 0;
 }
 
 .event-report-section .btn-primary:active {

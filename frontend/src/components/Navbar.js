@@ -97,37 +97,46 @@ function Navbar({ user, onLogout }) {
                 className={`nav-link ${activeSection === 'home' ? 'active' : ''}`} 
                 href="#home"
                 onClick={(e) => handleNavClick(e, 'home')}
-                data-tooltip="Go to Home"
+                // data-tooltip="Go to Home"
               >
                 <i className="fas fa-home me-1"></i>Home
               </a>
             </li>
             <li className="nav-item">
               <a 
-                className={`nav-link ${activeSection === 'event-report' ? 'active' : ''}`} 
-                href="#event-report"
-                onClick={(e) => handleNavClick(e, 'event-report')}
-                data-tooltip="Generate Event Reports"
+                className={`nav-link ${location.pathname === '/event-report-generator' ? 'active' : ''}`} 
+                href="/event-report-generator"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/event-report-generator');
+                }}
+                // data-tooltip="Generate Event Reports"
               >
                 <i className="fas fa-file-alt me-1"></i>Event Reports
               </a>
             </li>
             <li className="nav-item">
               <a 
-                className={`nav-link ${activeSection === 'feedback' ? 'active' : ''}`} 
-                href="#feedback"
-                onClick={(e) => handleNavClick(e, 'feedback')}
-                data-tooltip="Analyze Feedback"
+                className={`nav-link ${location.pathname === '/feedback-analyzer' ? 'active' : ''}`} 
+                href="/feedback-analyzer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/feedback-analyzer');
+                }}
+                // data-tooltip="Analyze Feedback"
               >
                 <i className="fas fa-comments me-1"></i>Feedback Analysis
               </a>
             </li>
             <li className="nav-item">
               <a 
-                className={`nav-link ${activeSection === 'image-services' ? 'active' : ''}`} 
-                href="#image-services"
-                onClick={(e) => handleNavClick(e, 'image-services')}
-                data-tooltip="Image Processing Services"
+                className={`nav-link ${location.pathname === '/image-services' ? 'active' : ''}`} 
+                href="/image-services"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/image-services');
+                }}
+                // data-tooltip="Image Processing Services"
               >
                 <i className="fas fa-image me-1"></i>Image Services
               </a>
@@ -137,7 +146,7 @@ function Navbar({ user, onLogout }) {
                 className={`nav-link ${activeSection === 'about' ? 'active' : ''}`} 
                 href="#about"
                 onClick={(e) => handleNavClick(e, 'about')}
-                data-tooltip="About CampusOps"
+                // data-tooltip="About CampusOps"
               >
                 <i className="fas fa-info-circle me-1"></i>About
               </a>
