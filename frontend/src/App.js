@@ -6,14 +6,25 @@ import './App.css';
 // Components
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
-import EventReportGenerator from './components/EventReportGenerator';
-import FeedbackAnalyzer from './components/FeedbackAnalyzer';
-import ImageServices from './components/ImageServices';
+import SectionNavigation from './components/SectionNavigation';
+import EventReportGeneratorShowcase from './components/EventReportGeneratorShowcase';
+import FeedbackAnalyzerShowcase from './components/FeedbackAnalyzerShowcase';
+import ImageServicesShowcase from './components/ImageServicesShowcase';
 import About from './components/About';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
+
+// Feature detail pages
+import EventReportGeneratorPage from './components/EventReportGeneratorPage';
+import FeedbackAnalyzerPage from './components/FeedbackAnalyzerPage';
+import ImageServicesPage from './components/ImageServicesPage';
+
+// Import interactive components for dashboard
+import EventReportGenerator from './components/EventReportGenerator';
+import FeedbackAnalyzer from './components/FeedbackAnalyzer';
+import ImageServices from './components/ImageServices';
 
 // Home page component (public)
 function HomePage({ user }) {
@@ -21,6 +32,13 @@ function HomePage({ user }) {
     <>
       <Navbar user={user} />
       <HeroSection />
+<<<<<<< HEAD
+      <SectionNavigation />
+      <EventReportGeneratorShowcase />
+      <FeedbackAnalyzerShowcase />
+      <ImageServicesShowcase />
+=======
+>>>>>>> 67a555b2f1fcfb68503665870eae2d8fecfdc03f
       <About />
       <Footer />
     </>
@@ -93,6 +111,11 @@ function App() {
               user ? <Navigate to="/dashboard" /> : <Signup />
             } 
           />
+
+          {/* Feature detail pages (public) */}
+          <Route path="/event-report-generator" element={<EventReportGeneratorPage />} />
+          <Route path="/feedback-analyzer" element={<FeedbackAnalyzerPage />} />
+          <Route path="/image-services" element={<ImageServicesPage />} />
           
           {/* Protected Routes */}
           <Route 

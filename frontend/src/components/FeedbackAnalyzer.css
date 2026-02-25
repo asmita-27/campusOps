@@ -348,7 +348,7 @@
   font-size: 1.3rem;
 }
 
-/* Submit Button - ENHANCED */
+/* Submit Button */
 .feedback-analyzer-section .btn-success {
   background: linear-gradient(135deg, #48bb78, #38a169);
   border: none;
@@ -365,7 +365,9 @@
   width: 100%;
   box-shadow: 0 10px 25px rgba(72, 187, 120, 0.3);
 }
-
+.feature-tool-section {
+  padding: 40px 0 60px;
+}
 .feedback-analyzer-section .btn-success::before {
   content: '';
   position: absolute;
@@ -494,7 +496,13 @@
   animation: countUp 1s ease;
   font-weight: 800;
 }
-
+.feature-tool-section {
+  padding-top: 20px;
+  padding-bottom: 60px;
+}
+.feedback-header {
+  margin-bottom: 10px !important;
+}
 @keyframes countUp {
   from {
     opacity: 0;
@@ -554,7 +562,7 @@
   border-radius: 12px;
 }
 
-/* Preformatted Text for Results - ENHANCED */
+/* Preformatted Text for Results */
 .feedback-analyzer-section pre {
   background: #1a202c !important;
   color: #e2e8f0;
@@ -576,7 +584,72 @@
   width: 10px;
   height: 10px;
 }
+/* Shared analysis card style */
+.analysis-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 18px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
 
+.analysis-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Section headings */
+.analysis-card h5 {
+  font-weight: 600;
+  margin-bottom: 18px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* LIST FIX — align content left */
+.analysis-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 520px;   /* keeps text readable */
+}
+
+.analysis-card ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: left;   /* important */
+}
+
+/* custom bullet */
+.analysis-card ul li::before {
+  content: "";
+  flex-shrink: 0;
+  margin-top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c5cff, #00c6ff);
+}
+
+/* Top Issues specific style */
+.analysis-card.issues {
+  border-left: 5px solid #f5a623;
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+}
+
+/* Recommendations specific style */
+.analysis-card.recommendations {
+  border-left: 5px solid #4caf50;
+  background: linear-gradient(135deg, #f3fff5, #ffffff);
+}
 .feedback-analyzer-section pre::-webkit-scrollbar-track {
   background: #2d3748;
   border-radius: 10px;
@@ -762,33 +835,3 @@
 .feedback-analyzer-section .row.g-3 .card:hover::after {
   opacity: 1;
 }
-
-/* Additional decorative elements */
-.feedback-analyzer-section .card-body {
-  position: relative;
-}
-
-.feedback-analyzer-section .card-body::before {
-  content: '';
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(circle, rgba(72, 187, 120, 0.1) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-/* Focus states for accessibility */
-.feedback-analyzer-section input[type="file"]:focus-visible,
-.feedback-analyzer-section .btn-success:focus-visible {
-  outline: 3px solid #48bb78;
-  outline-offset: 3px;
-}
-
-/* Drag and drop visual effect */
-.feedback-analyzer-section input[type="file"]:active {
-  transform: scale(0.98);
-  background: rgba(72, 187, 120, 0.1);
-} 

@@ -12,7 +12,7 @@ function HeroSection() {
   return (
     <section id="home" className="hero-wrapper">
       <div className="container">
-        <div className="row align-items-center min-vh-75">
+        <div className="row align-items-center min-vh-50">
           <div className="col-lg-6">
             <h1 className="display-3 fw-bold mb-4">
               Welcome to <span className="text-warning">CampusOps</span>
