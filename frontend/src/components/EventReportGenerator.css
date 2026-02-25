@@ -43,13 +43,8 @@
   }
 }
 
-<<<<<<< HEAD
-/* Container */
- .event-report-section .container {
-=======
 /* Container - INCREASED WIDTH */
 .event-report-section .container {
->>>>>>> 67a555b2f1fcfb68503665870eae2d8fecfdc03f
   position: relative;
   z-index: 1;
   max-width: 1400px; /* Increased from default Bootstrap container width */

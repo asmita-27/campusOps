@@ -32,13 +32,10 @@ function HomePage({ user }) {
     <>
       <Navbar user={user} />
       <HeroSection />
-<<<<<<< HEAD
       <SectionNavigation />
       <EventReportGeneratorShowcase />
       <FeedbackAnalyzerShowcase />
       <ImageServicesShowcase />
-=======
->>>>>>> 67a555b2f1fcfb68503665870eae2d8fecfdc03f
       <About />
       <Footer />
     </>

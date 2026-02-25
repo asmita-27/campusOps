@@ -1,12 +1,6 @@
 /* About Component - Modern SaaS Style */
 
 .about-section {
-<<<<<<< HEAD
-  background: linear-gradient(135deg, #f9fafc 0%, #f0f4ff 100%);
-  padding: 100px 40px;
-  position: relative;
-  overflow: hidden;
-=======
   background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
   position: relative;
   overflow: hidden;
@@ -14,7 +8,6 @@
   display: flex;
   align-items: center;
   padding: 6rem 0;
->>>>>>> 67a555b2f1fcfb68503665870eae2d8fecfdc03f
 }
 
 /* Animated background patterns */
@@ -78,11 +71,7 @@
 .about-section .container {
   position: relative;
   z-index: 1;
-<<<<<<< HEAD
-  max-width: 1200px;
-=======
   max-width: 1400px; /* Increased container width */
->>>>>>> 67a555b2f1fcfb68503665870eae2d8fecfdc03f
 }
 
 /* Section Header */

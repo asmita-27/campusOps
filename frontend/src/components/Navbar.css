@@ -107,13 +107,7 @@
 /* Active nav link (when section is in view) */
 .custom-navbar .nav-link.active {
   color: #fff !important;
-<<<<<<< HEAD
-  background: rgba(255, 215, 0, 0.2);
-  /* border-bottom: 3px solid #ffd700; */
-  border-radius: 50px 50px 0 0;
-=======
   background: rgba(255, 255, 255, 0.15);
->>>>>>> 67a555b2f1fcfb68503665870eae2d8fecfdc03f
 }
 
 .custom-navbar .nav-link.active i {
