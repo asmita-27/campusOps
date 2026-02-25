@@ -201,6 +201,104 @@ Generate a JSON response with this structure:
         prompt = prompts.get(document_type, prompts["event_plan"])
         return self.generate_json(prompt, system_prompt)
     
+    def generate_event_report_with_template(self, event_description, document_type="event_plan", template_analysis=None):
+        """
+        Generate event report/plan matching a provided template style
+        
+        Args:
+            event_description: Description of the event
+            document_type: Type of document (event_plan, summary, report)
+            template_analysis: Optional template analysis from TemplateAnalyzer
+            
+        Returns:
+            dict: Generated report matching template style
+        """
+        
+        # If no template provided, use default generation
+        if not template_analysis or not template_analysis.get('success'):
+            return self.generate_event_report(event_description, document_type)
+        
+        # Import here to avoid circular dependency
+        from services.template_analyzer import TemplateAnalyzer
+        analyzer = TemplateAnalyzer()
+        
+        # Get template formatting instructions
+        template_instructions = analyzer.create_template_prompt(template_analysis)
+        
+        system_prompt = f"""You are an expert event planner and report generator.
+You MUST follow the provided template structure and formatting style EXACTLY.
+Your output should match the template's documentation style, sections, and formatting."""
+        
+        # Build enhanced prompts with template awareness
+        base_prompts = {
+            "event_plan": f"""Create a detailed event plan for: {event_description}
+
+{template_instructions}
+
+CRITICAL REQUIREMENTS:
+1. Match the template's section structure EXACTLY
+2. Use the same numbering/bullet style as the template
+3. Follow the same heading format and capitalization
+4. Maintain similar level of detail and formality
+5. Include all sections present in the template
+6. Use similar language style and tone
+
+Generate the event plan content that perfectly matches the template format.""",
+            
+            "summary": f"""Create an event summary for: {event_description}
+
+{template_instructions}
+
+CRITICAL REQUIREMENTS:
+1. Match the template's section structure EXACTLY
+2. Use the same numbering/bullet style as the template
+3. Follow the same heading format and capitalization
+4. Maintain similar level of detail and formality
+5. Include all sections present in the template
+6. Use similar language style and tone
+
+Generate the event summary content that perfectly matches the template format.""",
+            
+            "report": f"""Create a detailed event report for: {event_description}
+
+{template_instructions}
+
+CRITICAL REQUIREMENTS:
+1. Match the template's section structure EXACTLY
+2. Use the same numbering/bullet style as the template
+3. Follow the same heading format and capitalization
+4. Maintain similar level of detail and formality
+5. Include all sections present in the template
+6. Use similar language style and tone
+7. Include tables if the template has tables
+
+Generate the detailed report content that perfectly matches the template format."""
+        }
+        
+        prompt = base_prompts.get(document_type, base_prompts["event_plan"])
+        
+        # Generate with longer response for detailed templates
+        text_response = self.generate_text(
+            prompt=prompt,
+            system_prompt=system_prompt,
+            max_tokens=4000,  # Increased for template-matched content
+            temperature=0.7
+        )
+        
+        # Return both formatted and raw text
+        return {
+            'success': True,
+            'content': text_response,
+            'template_matched': True,
+            'template_format': template_analysis.get('format'),
+            'template_sections': template_analysis.get('structure', {}).get('common_sections', []),
+            'metadata': {
+                'document_type': document_type,
+                'event_description': event_description,
+                'word_count': len(text_response.split())
+            }
+        }
+    
     def analyze_feedback(self, feedback_text):
         """Analyze feedback text and extract insights"""
         

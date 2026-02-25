@@ -3,6 +3,7 @@ Event-related API routes
 """
 from flask import Blueprint, request, jsonify, current_app
 from werkzeug.utils import secure_filename
+from services.template_analyzer import TemplateAnalyzer
 import os
 
 bp = Blueprint('events', __name__, url_prefix='/api/events')
@@ -10,7 +11,7 @@ bp = Blueprint('events', __name__, url_prefix='/api/events')
 
 @bp.route('/generate', methods=['POST'])
 def generate_event_report():
-    """Generate event report/plan/summary"""
+    """Generate event report/plan/summary with optional template"""
     try:
         # Get form data
         event_description = request.form.get('event_description')
@@ -22,7 +23,30 @@ def generate_event_report():
                 'error': 'event_description is required'
             }), 400
         
-        # Handle file uploads if present
+        # Handle template file upload
+        template_file = request.files.get('template')
+        template_path = None
+        template_analysis = None
+        
+        if template_file and template_file.filename:
+            upload_folder = 'uploads/templates'
+            os.makedirs(upload_folder, exist_ok=True)
+            
+            filename = secure_filename(template_file.filename)
+            template_path = os.path.join(upload_folder, filename)
+            template_file.save(template_path)
+            
+            # Analyze template
+            analyzer = TemplateAnalyzer()
+            template_analysis = analyzer.analyze_template(template_path)
+            
+            if not template_analysis.get('success'):
+                return jsonify({
+                    'success': False,
+                    'error': f"Template analysis failed: {template_analysis.get('error')}"
+                }), 400
+        
+        # Handle image uploads if present
         images = request.files.getlist('images')
         image_paths = []
         
@@ -37,9 +61,13 @@ def generate_event_report():
                     image.save(filepath)
                     image_paths.append(filepath)
         
-        # Generate report using LLM
+        # Generate report using LLM with template awareness
         llm = current_app.llm
-        result = llm.generate_event_report(event_description, document_type)
+        result = llm.generate_event_report_with_template(
+            event_description, 
+            document_type,
+            template_analysis
+        )
         
         # Store in database
         db = current_app.db
@@ -49,6 +77,8 @@ def generate_event_report():
                 'document_type': document_type,
                 'generated_content': result,
                 'image_paths': image_paths,
+                'template_used': template_path is not None,
+                'template_path': template_path,
                 'timestamp': None  # Will be set by MongoDB
             }
             # Save to MongoDB
@@ -60,12 +90,16 @@ def generate_event_report():
             'metadata': {
                 'event_description': event_description,
                 'document_type': document_type,
-                'images_uploaded': len(image_paths)
+                'images_uploaded': len(image_paths),
+                'template_used': template_path is not None,
+                'template_format': template_analysis.get('format') if template_analysis else None
             }
         }), 200
     
     except Exception as e:
         print(f"Error in generate_event_report: {e}")
+        import traceback
+        traceback.print_exc()
         return jsonify({
             'success': False,
             'error': str(e)

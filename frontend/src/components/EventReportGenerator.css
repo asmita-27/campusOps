@@ -510,3 +510,77 @@
   outline: 2px solid #667eea;
   outline-offset: 2px;
 }
+
+/* Template Upload Feature Styling */
+.event-report-section input[type="file"][accept*=".txt"],
+.event-report-section input[type="file"][accept*=".docx"],
+.event-report-section input[type="file"][accept*=".pdf"] {
+  border: 2px dashed #667eea;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  transition: all 0.3s ease;
+}
+
+.event-report-section input[type="file"]:hover {
+  border-color: #764ba2;
+  background: linear-gradient(135deg, #e0e8f5 0%, #b8c6db 100%);
+}
+
+/* Template Badge Styling */
+.event-report-section .badge.bg-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Template Alert Box */
+.event-report-section .alert-info {
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+  border: 2px solid #0ea5e9;
+  border-radius: 12px;
+}
+
+/* Card Header Gradient for Results */
+.event-report-section .card-header.bg-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+/* Copy Button Styling */
+.event-report-section .btn-light {
+  transition: all 0.3s ease;
+}
+
+.event-report-section .btn-light:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Metadata Badges */
+.event-report-section .card-footer .badge {
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.event-report-section .card-footer .badge:hover {
+  transform: scale(1.05);
+}
+
+/* Pre-wrap for template content */
+.event-report-section pre[style*="pre-wrap"] {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem;
+  color: #2d3748;
+  background: #f7fafc !important;
+  border: 1px solid #e2e8f0;
+}

@@ -5,7 +5,8 @@ function EventReportGenerator() {
   const [formData, setFormData] = useState({
     eventDescription: '',
     documentType: 'event_plan',
-    images: []
+    images: [],
+    template: null
   });
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
@@ -27,6 +28,14 @@ function EventReportGenerator() {
     }));
   };
 
+  const handleTemplateUpload = (e) => {
+    const file = e.target.files[0];
+    setFormData(prev => ({
+      ...prev,
+      template: file
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -38,6 +47,12 @@ function EventReportGenerator() {
       formDataToSend.append('event_description', formData.eventDescription);
       formDataToSend.append('document_type', formData.documentType);
       
+      // Add template file if provided
+      if (formData.template) {
+        formDataToSend.append('template', formData.template);
+      }
+      
+      // Add images if provided
       formData.images.forEach((image) => {
         formDataToSend.append('images', image);
       });
@@ -49,6 +64,11 @@ function EventReportGenerator() {
       });
 
       const data = await response.json();
+      
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to generate report');
+      }
+      
       setResult(data);
     } catch (err) {
       setError(err.message || 'Failed to generate report');
@@ -118,6 +138,38 @@ function EventReportGenerator() {
                     </select>
                   </div>
 
+                  {/* Template Upload - NEW FEATURE */}
+                  <div className="form-group mb-4">
+                    <label htmlFor="template" className="form-label fw-bold">
+                      <i className="fas fa-file-contract me-2"></i>
+                      Document Template (Optional)
+                      <span className="badge bg-primary ms-2">NEW</span>
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="template"
+                      name="template"
+                      accept=".txt,.docx,.pdf"
+                      onChange={handleTemplateUpload}
+                    />
+                    <small className="form-text text-muted">
+                      <i className="fas fa-info-circle me-1"></i>
+                      Upload your club's documentation template (TXT, DOCX, or PDF) and the AI will match your style!
+                    </small>
+                    {formData.template && (
+                      <div className="mt-3">
+                        <div className="alert alert-info py-2" role="alert">
+                          <i className="fas fa-check-circle me-2"></i>
+                          Template: <strong>{formData.template.name}</strong>
+                          <span className="badge bg-success ms-2">
+                            {(formData.template.size / 1024).toFixed(1)} KB
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
                   {/* Image Upload */}
                   <div className="form-group mb-4">
                     <label htmlFor="images" className="form-label fw-bold">
@@ -182,16 +234,77 @@ function EventReportGenerator() {
                     <div className="alert alert-success" role="alert">
                       <i className="fas fa-check-circle me-2"></i>
                       Report generated successfully!
+                      {result.metadata?.template_used && (
+                        <span className="ms-2">
+                          <i className="fas fa-file-contract me-1"></i>
+                          Template-matched ({result.metadata.template_format})
+                        </span>
+                      )}
                     </div>
+                    
                     <div className="card">
-                      <div className="card-header">
-                        <h5 className="mb-0 text-white">Generated Report</h5>
+                      <div className="card-header bg-gradient d-flex justify-content-between align-items-center">
+                        <h5 className="mb-0 text-white">
+                          <i className="fas fa-file-alt me-2"></i>
+                          Generated Report
+                        </h5>
+                        <button 
+                          className="btn btn-sm btn-light"
+                          onClick={() => {
+                            const content = result.data?.content || JSON.stringify(result.data, null, 2);
+                            navigator.clipboard.writeText(content);
+                            alert('Report copied to clipboard!');
+                          }}
+                        >
+                          <i className="fas fa-copy me-1"></i>
+                          Copy
+                        </button>
                       </div>
                       <div className="card-body p-0">
-                        <pre className="bg-light p-4 rounded-3 m-0">
-                          {JSON.stringify(result, null, 2)}
-                        </pre>
+                        {result.data?.content ? (
+                          // Template-matched content (plain text)
+                          <div className="p-4">
+                            <pre className="bg-light p-4 rounded-3 m-0" style={{whiteSpace: 'pre-wrap', lineHeight: '1.8'}}>
+                              {result.data.content}
+                            </pre>
+                          </div>
+                        ) : (
+                          // JSON format (legacy)
+                          <pre className="bg-light p-4 rounded-3 m-0">
+                            {JSON.stringify(result.data, null, 2)}
+                          </pre>
+                        )}
                       </div>
+                      
+                      {/* Display metadata */}
+                      {result.metadata && (
+                        <div className="card-footer bg-light">
+                          <small className="text-muted">
+                            <strong>Metadata:</strong>
+                            <div className="mt-2">
+                              <span className="badge bg-secondary me-2">
+                                Type: {result.metadata.document_type}
+                              </span>
+                              {result.metadata.images_uploaded > 0 && (
+                                <span className="badge bg-info me-2">
+                                  Images: {result.metadata.images_uploaded}
+                                </span>
+                              )}
+                              {result.metadata.template_used && (
+                                <span className="badge bg-success me-2">
+                                  <i className="fas fa-check me-1"></i>
+                                  Template Applied
+                                </span>
+                              )}
+                              {result.data?.word_count && (
+                                <span className="badge bg-primary">
+                                  Words: {result.data.word_count}
+                                </span>
+                              )}
+                            </div>
+                          </small>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

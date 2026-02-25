@@ -28,6 +28,7 @@
 ### 🤖 **AI-Powered Tools**
 
 - **Event Report Generator**: Create event plans, summaries, and reports using AI
+  - 🆕 **Template Matching**: Upload your club's template (TXT/DOCX/PDF) and AI will match your documentation style!
 - **Feedback Analyzer**: Analyze CSV feedback with sentiment analysis
 - **Budget Suggester**: RAG-powered budget recommendations
 - **MOU Generator**: AI-assisted MOU document creation
@@ -209,7 +210,12 @@ Once the server is running, visit:
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
-## 🔧 Supported Document Types
+## � Feature Guides
+
+- **[Template Matching Guide](TEMPLATE_MATCHING_GUIDE.md)**: Learn how to use template-based report generation
+- **[Setup Guide](SETUP_GUIDE.md)**: Team collaboration and database setup
+
+## �🔧 Supported Document Types
 
 - `event_plan`: Comprehensive event planning document
 - `summary`: Event summary with key points
