@@ -75,118 +75,71 @@
 
 /* Navigation links */
 .custom-navbar .nav-link {
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   font-weight: 600;
   padding: 0.75rem 1.2rem !important;
-  margin: 0 0.2rem;
-  border-radius: 50px;
-  transition: all 0.3s ease;
+  margin: 0 0.3rem;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  font-size: 1rem;
+  font-size: 0.95rem;
   letter-spacing: 0.3px;
+  overflow: hidden;
 }
 
 .custom-navbar .nav-link i {
-  margin-right: 0.4rem;
+  margin-right: 0.5rem;
   font-size: 1rem;
-  transition: all 0.3s ease;
-  color: #ffd700;
+  transition: transform 0.3s ease;
+  color: rgba(255, 215, 0, 0.9);
 }
 
-/* Hover effect for nav links */
+/* Hover effect for nav links - Clean underline style */
 .custom-navbar .nav-link:hover {
   color: #fff !important;
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .custom-navbar .nav-link:hover i {
-  transform: scale(1.2) rotate(5deg);
-  color: #ffd700;
+  transform: translateX(2px);
 }
 
 /* Active nav link (when section is in view) */
 .custom-navbar .nav-link.active {
   color: #fff !important;
+<<<<<<< HEAD
   background: rgba(255, 215, 0, 0.2);
   /* border-bottom: 3px solid #ffd700; */
   border-radius: 50px 50px 0 0;
+=======
+  background: rgba(255, 255, 255, 0.15);
+>>>>>>> 67a555b2f1fcfb68503665870eae2d8fecfdc03f
 }
 
 .custom-navbar .nav-link.active i {
   color: #ffd700;
-  transform: scale(1.1);
 }
 
-/* Underline animation for nav links (desktop) */
-@media (min-width: 992px) {
-  .custom-navbar .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #ffd700, #ffaa00);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-    border-radius: 2px;
-    opacity: 0;
-  }
-
-  .custom-navbar .nav-link:hover::after {
-    width: 80%;
-    opacity: 1;
-  }
-
-  .custom-navbar .nav-link.active::after {
-    width: 80%;
-    opacity: 1;
-    background: linear-gradient(90deg, #ffaa00, #ffd700);
-  }
+/* Clean underline animation for nav links */
+.custom-navbar .nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd700, #ffaa00);
+  transition: width 0.3s ease;
+  border-radius: 2px;
 }
 
-/* Dropdown menu (if needed in future) */
-.custom-navbar .dropdown-menu {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  padding: 0.5rem;
-  margin-top: 0.5rem;
-  animation: slideDown 0.3s ease;
+.custom-navbar .nav-link:hover::before {
+  width: 100%;
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.custom-navbar .dropdown-item {
-  color: rgba(255, 255, 255, 0.9);
-  padding: 0.75rem 1.5rem;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  font-weight: 500;
-}
-
-.custom-navbar .dropdown-item i {
-  margin-right: 0.5rem;
-  color: #ffd700;
-  width: 20px;
-}
-
-.custom-navbar .dropdown-item:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  transform: translateX(5px);
+.custom-navbar .nav-link.active::before {
+  width: 100%;
+  background: #ffd700;
 }
 
 /* Mobile menu styles */
@@ -214,8 +167,26 @@
 
   .custom-navbar .nav-link.active {
     border-radius: 10px;
-    border-bottom: none;
+  }
+
+  .custom-navbar .nav-link.active::before {
+    display: none;
+  }
+
+  .custom-navbar .nav-link.active {
     border-left: 4px solid #ffd700;
+  }
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -266,33 +237,6 @@
   position: relative;
 }
 
-/* Tooltip for nav items (optional) */
-.custom-navbar .nav-link[data-tooltip]:hover::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.3rem 0.8rem;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  white-space: nowrap;
-  margin-bottom: 5px;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 /* Responsive font sizes */
 @media (max-width: 768px) {
   .custom-navbar .navbar-brand {
@@ -327,27 +271,77 @@
   border-radius: 4px;
 }
 
-/* Ripple effect on click (optional) */
-.custom-navbar .nav-link {
-  position: relative;
-  overflow: hidden;
+/* Dropdown Menu Styles */
+.custom-navbar .dropdown-toggle::after {
+  margin-left: 0.4rem;
+  transition: transform 0.3s ease;
 }
 
-.custom-navbar .nav-link::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.3s, height 0.3s;
-  z-index: 0;
+.custom-navbar .dropdown-toggle[aria-expanded="true"]::after {
+  transform: rotate(180deg);
 }
 
-.custom-navbar .nav-link:active::before {
-  width: 200px;
-  height: 200px;
+.custom-navbar .dropdown-menu {
+  background: rgba(102, 126, 234, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  animation: slideDown 0.3s ease;
+  min-width: 200px;
+}
+
+.custom-navbar .dropdown-item {
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.custom-navbar .dropdown-item i {
+  margin-right: 0.75rem;
+  color: #ffd700;
+  width: 18px;
+  font-size: 1rem;
+}
+
+.custom-navbar .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.custom-navbar .dropdown-item:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.custom-navbar .dropdown-item-text {
+  color: rgba(255, 255, 255, 0.95);
+  padding: 0.5rem 1rem;
+}
+
+.custom-navbar .dropdown-divider {
+  border-color: rgba(255, 255, 255, 0.2);
+  margin: 0.5rem 0;
+}
+
+/* Auth Buttons (Login/Signup) */
+.custom-navbar .btn-outline-light {
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: #fff !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1.5rem;
+}
+
+.custom-navbar .btn-outline-light:hover {
+  background: #fff;
+  color: #667eea !important;
+  border-color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }

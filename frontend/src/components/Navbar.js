@@ -42,7 +42,35 @@ function Navbar({ user, onLogout }) {
   const handleNavClick = (e, sectionId) => {
     e.preventDefault();
     
-    // If we're on a different page, navigate to home first
+    // Check if it's a protected feature section
+    const protectedSections = ['event-report', 'feedback', 'image-services'];
+    
+    if (protectedSections.includes(sectionId)) {
+      // If user is not logged in, redirect to login
+      if (!user) {
+        navigate('/login');
+        return;
+      }
+      
+      // If logged in, navigate to dashboard
+      if (location.pathname !== '/dashboard') {
+        navigate('/dashboard');
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+      return;
+    }
+    
+    // For public sections (home, about), navigate normally
     if (location.pathname !== '/') {
       navigate('/');
       setTimeout(() => {
