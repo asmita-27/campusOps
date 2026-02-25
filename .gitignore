@@ -4,6 +4,9 @@ venv/
 env/
 ENV/
 
+# Sensitive team credentials
+TEAM_CREDENTIALS.md
+
 # Python
 __pycache__/
 *.py[cod]

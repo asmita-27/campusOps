@@ -1,8 +1,75 @@
-# CampusOps AI Backend
+# 🎓 CampusOps - AI-Powered Club Management Platform
 
-FastAPI backend for AI-powered event management and document generation.
+**CampusOps** is a comprehensive club management platform with AI-powered features for event planning, feedback analysis, and document generation.
 
-## 📁 Project Structure
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![React](https://img.shields.io/badge/React-19.1.0-61dafb)](https://reactjs.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.0.0-black)](https://flask.palletsprojects.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)](https://www.mongodb.com/cloud/atlas)
+
+---
+
+## ✨ Features
+
+### 🔐 **Authentication System**
+
+- Multi-club registration and login
+- JWT-based authentication
+- Secure password handling
+- Session persistence
+
+### 📊 **Dashboard**
+
+- Personalized club dashboard
+- Real-time stats tracking
+- Quick action buttons
+- Beautiful gradient UI
+
+### 🤖 **AI-Powered Tools**
+
+- **Event Report Generator**: Create event plans, summaries, and reports using AI
+- **Feedback Analyzer**: Analyze CSV feedback with sentiment analysis
+- **Budget Suggester**: RAG-powered budget recommendations
+- **MOU Generator**: AI-assisted MOU document creation
+
+### 💾 **Cloud Database**
+
+- MongoDB Atlas integration
+- Shared database across all team members
+- Real-time data synchronization
+
+---
+
+## 🚀 Quick Start
+
+### **For Team Members:**
+
+**👉 See [SETUP_GUIDE.md](SETUP_GUIDE.md) for detailed setup instructions**
+
+**TL;DR:**
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/asmita-27/campusOps.git
+cd campusOps
+
+# 2. Backend setup
+cd backend
+cp .env.example .env
+pip install -r requirements.txt
+python main.py
+
+# 3. Frontend setup (new terminal)
+cd frontend
+npm install
+npm start
+```
+
+Visit: http://localhost:3000
+
+---
+
+## 📂 Project Structure
 
 ```
 Project Structure
@@ -42,11 +109,13 @@ python -m venv venv
 ### 2. Activate Virtual Environment
 
 **Windows:**
+
 ```bash
 venv\Scripts\activate
 ```
 
 **macOS/Linux:**
+
 ```bash
 source venv/bin/activate
 ```
@@ -66,6 +135,7 @@ cp .env.example .env
 ```
 
 Edit `.env` and add your OpenAI API key:
+
 ```
 OPENAI_API_KEY=sk-proj-...your-key-here...
 ```
@@ -77,6 +147,7 @@ python main.py
 ```
 
 Or use uvicorn directly:
+
 ```bash
 uvicorn main:app --reload
 ```
@@ -86,20 +157,24 @@ The server will start at `http://localhost:8000`
 ## 📝 API Endpoints
 
 ### Health Check
+
 ```
 GET /
 ```
 
 ### Generate Document
+
 ```
 POST /generate
 ```
 
 **Request (form-data):**
+
 - `event_description` (string, required): Description of the event
 - `document_type` (string, required): Type of document (event_plan, summary, report)
 
 **Example using curl:**
+
 ```bash
 curl -X POST "http://localhost:8000/generate" \
   -F "event_description=Annual tech conference with 500 attendees" \
@@ -107,6 +182,7 @@ curl -X POST "http://localhost:8000/generate" \
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -129,6 +205,7 @@ curl -X POST "http://localhost:8000/generate" \
 ## 📖 API Documentation
 
 Once the server is running, visit:
+
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
@@ -144,6 +221,7 @@ Once the server is running, visit:
 ### Testing the API
 
 Using Python requests:
+
 ```python
 import requests
 
@@ -160,6 +238,7 @@ print(response.json())
 ### Configuration
 
 Modify `llm_service.py` to change:
+
 - OpenAI model (default: `gpt-4o-mini`)
 - Temperature settings
 - Max tokens

@@ -43,10 +43,11 @@
   }
 }
 
-/* Container */
+/* Container - INCREASED WIDTH */
 .event-report-section .container {
   position: relative;
   z-index: 1;
+  max-width: 1400px; /* Increased from default Bootstrap container width */
 }
 
 /* Section Title Animation */
@@ -96,7 +97,7 @@
   }
 }
 
-/* Main Card Styling */
+/* Main Card Styling - INCREASED WIDTH */
 .event-report-section .card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -105,6 +106,9 @@
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
   animation: fadeInUp 0.8s ease;
+  width: 100%;
+  max-width: 1200px; /* Increased max-width for the card */
+  margin: 0 auto; /* Center the card */
 }
 
 @keyframes fadeInUp {
@@ -128,6 +132,17 @@
   padding: 2.5rem !important;
 }
 
+/* Form row layout - makes form elements wider */
+.event-report-section .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.event-report-section .col-lg-8 {
+  flex: 0 0 100%; /* Make the column take full width */
+  max-width: 100%;
+}
+
 /* Form Labels */
 .event-report-section .form-label {
   color: #2d3748;
@@ -142,7 +157,7 @@
   font-size: 1.2rem;
 }
 
-/* Form Controls */
+/* Form Controls - INCREASED WIDTH */
 .event-report-section .form-control,
 .event-report-section .form-select {
   border: 2px solid #e2e8f0;
@@ -151,6 +166,7 @@
   font-size: 1rem;
   transition: all 0.3s ease;
   background: white;
+  width: 100%; /* Ensure full width */
 }
 
 .event-report-section .form-control:focus,
@@ -179,17 +195,28 @@
   padding-left: 0.5rem;
 }
 
-/* File Input Styling */
+/* File Input Styling - INCREASED WIDTH */
 .event-report-section input[type="file"] {
-  padding: 0.5rem;
+  border: 2px dashed #e2e8f0;
+  border-radius: 15px;
+  padding: 2rem 1rem;
   cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  width: 100%; /* Full width */
+}
+
+.event-report-section input[type="file"]:hover {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.02);
+  transform: scale(1.02);
 }
 
 .event-report-section input[type="file"]::file-selector-button {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 2rem;
   border-radius: 10px;
   margin-right: 1rem;
   transition: all 0.3s ease;
@@ -207,6 +234,7 @@
   border-radius: 50px;
   font-size: 0.9rem;
   animation: slideInRight 0.5s ease;
+  display: inline-block;
 }
 
 @keyframes slideInRight {
@@ -220,7 +248,7 @@
   }
 }
 
-/* Submit Button */
+/* Submit Button - FULL WIDTH */
 .event-report-section .btn-primary {
   background: linear-gradient(135deg, #667eea, #764ba2);
   border: none;
@@ -232,6 +260,7 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
+  width: 100%; /* Full width button */
 }
 
 .event-report-section .btn-primary::before {
@@ -276,12 +305,13 @@
   margin-right: 0.5rem;
 }
 
-/* Alert Messages */
+/* Alert Messages - FULL WIDTH */
 .event-report-section .alert {
   border-radius: 15px;
   padding: 1rem 1.5rem;
   border: none;
   animation: slideInDown 0.5s ease;
+  width: 100%; /* Full width */
 }
 
 .event-report-section .alert-success {
@@ -294,11 +324,12 @@
   color: #742a2a;
 }
 
-/* Result Card */
+/* Result Card - FULL WIDTH */
 .event-report-section .card:last-of-type {
   margin-top: 2rem;
   border-radius: 20px;
   overflow: hidden;
+  width: 100%; /* Full width */
 }
 
 .event-report-section .card-header {
@@ -320,7 +351,7 @@
   font-size: 1.2rem;
 }
 
-/* Preformatted Text for Results */
+/* Preformatted Text for Results - FULL WIDTH */
 .event-report-section pre {
   background: #1a202c !important;
   color: #e2e8f0;
@@ -333,6 +364,7 @@
   overflow: auto;
   border: 1px solid #2d3748;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Full width */
 }
 
 /* Custom Scrollbar for Pre */
@@ -386,6 +418,12 @@
     font-size: 0.8rem;
     padding: 1rem !important;
   }
+
+  /* Responsive container on mobile */
+  .event-report-section .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 /* Tablet Adjustments */
@@ -396,6 +434,21 @@
   
   .event-report-section .card-body {
     padding: 2rem !important;
+  }
+
+  .event-report-section .container {
+    max-width: 90%; /* Use 90% of screen on tablets */
+  }
+}
+
+/* Large Desktop - Even wider for big screens */
+@media (min-width: 1400px) {
+  .event-report-section .container {
+    max-width: 1600px;
+  }
+  
+  .event-report-section .card {
+    max-width: 1400px;
   }
 }
 
