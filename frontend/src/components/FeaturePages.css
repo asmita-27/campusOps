@@ -4,7 +4,7 @@
   width: 100%;
   background: linear-gradient(135deg, #f8f9ff 0%, #eef2ff 100%);
   min-height: 100vh;
-  padding: 80px 0;
+  padding: 64px 0 0;
 }
 
 .feature-page-light {
@@ -20,7 +20,7 @@
 }
 
 .feature-section {
-  margin-bottom: 80px;
+  margin-bottom: 56px;
 }
 /* ============================= */
 /* FORCE TOOL CARD TO BE WIDE    */

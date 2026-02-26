@@ -114,13 +114,32 @@ function ImageServicesPage() {
         {/* BENEFITS */}
         <section className="feature-section">
           <div className="feature-wide-container">
-            <h2 className="h4 mb-3">Built for busy event teams</h2>
+            <div className="feature-two-column">
+              <div>
+                <h2 className="h4 mb-3">Built for busy event teams</h2>
 
-            <ul className="feature-simple-list">
-              <li><i className="fas fa-clock" /><span>Save manual processing time.</span></li>
-              <li><i className="fas fa-file-signature" /><span>Improve documentation accuracy.</span></li>
-              <li><i className="fas fa-robot" /><span>Automate visual reporting across events.</span></li>
-            </ul>
+                <ul className="feature-simple-list">
+                  <li><i className="fas fa-clock" /><span>Save manual processing time.</span></li>
+                  <li><i className="fas fa-file-signature" /><span>Improve documentation accuracy.</span></li>
+                  <li><i className="fas fa-robot" /><span>Automate visual reporting across events.</span></li>
+                </ul>
+              </div>
+
+              <div className="feature-mini-mockup">
+                <div className="feature-mini-mockup-inner">
+                  <div className="feature-mini-header">
+                    <div className="feature-mini-title">Ideal For</div>
+                    <span className="feature-mini-tag">Event ops</span>
+                  </div>
+                  <div className="feature-mini-body">
+                    <div className="feature-mini-pill" />
+                    <div className="feature-mini-pill" />
+                    <div className="feature-mini-pill" />
+                    <div className="feature-mini-pill" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

@@ -15,7 +15,7 @@ function EventReportGeneratorPage() {
             <div className="feature-hero-grid">
               <div>
                 <div className="feature-label">AI REPORTING</div>
-                <h1 className="feature-hero-title">Generate Professional Event Reports in Minutes</h1>
+                <h1 className="feature-hero-title">Generate Professional Event Rep  orts in Minutes</h1>
                 <p className="feature-hero-subtitle">
                   Turn messy event notes, photos, and details into polished, share-ready reports
                   that look like they were crafted by your communications team.
