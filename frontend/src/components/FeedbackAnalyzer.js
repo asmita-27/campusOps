@@ -92,7 +92,7 @@ const analysis = result?.data || result;
 
               <div className="alert alert-info">
                 Expected CSV format should include columns like
-                <strong> feedback, rating, comments</strong>.
+                <strong> feedback, rating, comments</strong>
               </div>
 
               <button

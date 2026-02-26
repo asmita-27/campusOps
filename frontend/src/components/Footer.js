@@ -117,12 +117,12 @@ function Footer() {
                 rel="noopener noreferrer" 
                 className="text-white text-decoration-none"
               >
-                asmita-27
+                asmita-27 & Team
               </a>
             </p>
-            <small className="text-muted">
+            {/* <small className="text-muted">
               Powered by Groq AI & FastAPI
-            </small>
+            </small> */}
           </div>
         </div>
       </div>
