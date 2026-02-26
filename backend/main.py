@@ -20,6 +20,7 @@ load_dotenv()
 # Initialize Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
+app.config['MAX_CONTENT_LENGTH'] = Config.MAX_CONTENT_LENGTH
 
 # Enable CORS for frontend communication
 CORS(app, resources={

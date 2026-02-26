@@ -1,0 +1,53 @@
+Event Report Template - Professional Form Format
+
+Title: Event Report of Club/Committee [CLUB_NAME] [EVENT_ID]
+
+Event Report
+
+[TABLE: Event Details - 2 columns]
+Name of the Club | [CLUB_NAME]
+Name of the Event | [EVENT_NAME]
+Student Vertical | [VERTICAL]
+Instalment of the said event | [INSTALMENT]
+Date and time of event | [DATE] [TIME]
+Mode - Online Platform/ Venue | [MODE/VENUE]
+Event span (hours/days) | [DURATION]
+Footfall/Total attendance | [NUMBER]
+Name and contact of the key organiser(s) | [NAME] ([CONTACT])
+No. of people involved in the organizing committee | [NUMBER]
+No. of faculty participated | [NUMBER]
+Objective of the event | [OBJECTIVE]
+Brief description of the said event (100 words or more) | [DESCRIPTION - detailed paragraph about the event, what was discussed, topics covered, participant insights]
+Benefits to students and Faculty | Benefits to Students: [BENEFITS_STUDENTS] Benefits to Faculty: [BENEFITS_FACULTY]
+Key event outcomes | [OUTCOMES]
+
+[TABLE: Additional Details - 2 columns]
+Milestones set by the event (if any) | [MILESTONES]
+Social media links for the respective team | [SOCIAL_LINKS]
+Name and bio of chief guest/s in attendance along with social media links (if any) | [GUEST_INFO]
+Event Sponsors and their brief description (if any) | [SPONSORS]
+
+● Program Outcomes Section
+
+[TABLE: Program Outcomes - 2 columns with ratings]
+Program Outcomes Indirectly Attained (Please enter the rating in the second column) | Category (Rating) Not Applicable (0) Partially Agree(1) Agree (2) Strongly Agree (3)
+Engineering knowledge: Has your ability to apply engineering knowledge to find solutions to engineering problems improved? | [0/1/2/3]
+Problem analysis: Has your ability to identify, formulate, and analyse engineering problems improved? | [0/1/2/3]
+Design/development of solutions: Has your ability improved to design and develop solutions to solve real world problems? | [0/1/2/3]
+Conduct Investigations of Complex Problems: How effectively were you able to investigate complex engineering problems using research-based knowledge, including the design of experiments, modelling, analysis, and interpretation of data to draw valid conclusions? | [0/1/2/3]
+The Engineer and the world: Is it possible for you to better apply reasoning informed by the contextual knowledge to assess societal, health, safety, legal and cultural issues? | [0/1/2/3]
+Engineering Tool Usage: How effectively were you able to create, select, and apply appropriate modern engineering and IT tools, including modelling and prediction techniques, while recognizing their limitations, to solve complex engineering problems? | [0/1/2/3]
+Ethics: Is your professional ethics improved due to participation in the event/activities? | [0/1/2/3]
+Individual and team work: Has your ability to function effectively as an individual, and as a member or leader in diverse teams improved? | [0/1/2/3]
+Communication: Has your ability to communicate effectively (comprehend and write effective reports, design documentation, make effective presentations, and give and receive clear instructions) improved? | [0/1/2/3]
+Project management and finance: Are the project management skills and handling the finance for the event/activity improved? | [0/1/2/3]
+Life-long learning: Has your ability to engage in independent and life-long learning in the context of technological change improved? | [0/1/2/3]
+
+● Photograph Section : geo-tagged photos
+[IMAGES HERE - multiple photos arranged in grid]
+
+● Photograph Section : non geo-tagged photos
+[IMAGES HERE - multiple photos arranged in grid]
+
+Additional details that are expected to be covered -
+[ADDITIONAL_DETAILS]

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import './EventReportGenerator.css';
 
 function EventReportGenerator() {
   const [formData, setFormData] = useState({
     eventDescription: '',
     documentType: 'event_plan',
+    outputFormat: 'text', // 'text' or 'document'
     images: [],
     template: null
   });
@@ -46,6 +49,7 @@ function EventReportGenerator() {
       const formDataToSend = new FormData();
       formDataToSend.append('event_description', formData.eventDescription);
       formDataToSend.append('document_type', formData.documentType);
+      formDataToSend.append('output_format', formData.outputFormat);
       
       // Add template file if provided
       if (formData.template) {
@@ -63,13 +67,39 @@ function EventReportGenerator() {
         body: formDataToSend,
       });
 
-      const data = await response.json();
-      
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to generate report');
+      // Handle document download
+      if (formData.outputFormat === 'document') {
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.error || 'Failed to generate document');
+        }
+        
+        // Download file
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `event_${formData.documentType}_${Date.now()}.docx`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        setResult({
+          success: true,
+          message: 'Document downloaded successfully!',
+          downloadedFile: a.download
+        });
+      } else {
+        // Handle text format (JSON response)
+        const data = await response.json();
+        
+        if (!data.success) {
+          throw new Error(data.error || 'Failed to generate report');
+        }
+        
+        setResult(data);
       }
-      
-      setResult(data);
     } catch (err) {
       setError(err.message || 'Failed to generate report');
     } finally {
@@ -136,6 +166,30 @@ function EventReportGenerator() {
                       <option value="summary">📝 Event Summary</option>
                       <option value="report">📊 Detailed Report</option>
                     </select>
+                  </div>
+
+                  {/* Output Format - NEW FEATURE */}
+                  <div className="form-group mb-4">
+                    <label htmlFor="outputFormat" className="form-label fw-bold">
+                      <i className="fas fa-file-download me-2"></i>
+                      Output Format
+                      <span className="badge bg-success ms-2">NEW</span>
+                    </label>
+                    <select
+                      className="form-select"
+                      id="outputFormat"
+                      name="outputFormat"
+                      value={formData.outputFormat}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="text">📄 Text (Copy & Paste)</option>
+                      <option value="document">📥 Download as DOCX</option>
+                    </select>
+                    <small className="form-text text-muted">
+                      <i className="fas fa-info-circle me-1"></i>
+                      Choose text format to view and copy, or download as a formatted Word document
+                    </small>
                   </div>
 
                   {/* Template Upload - NEW FEATURE */}
@@ -233,79 +287,109 @@ function EventReportGenerator() {
                   <div className="mt-5">
                     <div className="alert alert-success" role="alert">
                       <i className="fas fa-check-circle me-2"></i>
-                      Report generated successfully!
+                      {result.message || 'Report generated successfully!'}
                       {result.metadata?.template_used && (
                         <span className="ms-2">
                           <i className="fas fa-file-contract me-1"></i>
                           Template-matched ({result.metadata.template_format})
                         </span>
                       )}
-                    </div>
-                    
-                    <div className="card">
-                      <div className="card-header bg-gradient d-flex justify-content-between align-items-center">
-                        <h5 className="mb-0 text-white">
-                          <i className="fas fa-file-alt me-2"></i>
-                          Generated Report
-                        </h5>
-                        <button 
-                          className="btn btn-sm btn-light"
-                          onClick={() => {
-                            const content = result.data?.content || JSON.stringify(result.data, null, 2);
-                            navigator.clipboard.writeText(content);
-                            alert('Report copied to clipboard!');
-                          }}
-                        >
-                          <i className="fas fa-copy me-1"></i>
-                          Copy
-                        </button>
-                      </div>
-                      <div className="card-body p-0">
-                        {result.data?.content ? (
-                          // Template-matched content (plain text)
-                          <div className="p-4">
-                            <pre className="bg-light p-4 rounded-3 m-0" style={{whiteSpace: 'pre-wrap', lineHeight: '1.8'}}>
-                              {result.data.content}
-                            </pre>
-                          </div>
-                        ) : (
-                          // JSON format (legacy)
-                          <pre className="bg-light p-4 rounded-3 m-0">
-                            {JSON.stringify(result.data, null, 2)}
-                          </pre>
-                        )}
-                      </div>
-                      
-                      {/* Display metadata */}
-                      {result.metadata && (
-                        <div className="card-footer bg-light">
-                          <small className="text-muted">
-                            <strong>Metadata:</strong>
-                            <div className="mt-2">
-                              <span className="badge bg-secondary me-2">
-                                Type: {result.metadata.document_type}
-                              </span>
-                              {result.metadata.images_uploaded > 0 && (
-                                <span className="badge bg-info me-2">
-                                  Images: {result.metadata.images_uploaded}
-                                </span>
-                              )}
-                              {result.metadata.template_used && (
-                                <span className="badge bg-success me-2">
-                                  <i className="fas fa-check me-1"></i>
-                                  Template Applied
-                                </span>
-                              )}
-                              {result.data?.word_count && (
-                                <span className="badge bg-primary">
-                                  Words: {result.data.word_count}
-                                </span>
-                              )}
-                            </div>
-                          </small>
+                      {result.downloadedFile && (
+                        <div className="mt-2">
+                          <strong>Downloaded file: {result.downloadedFile}</strong>
                         </div>
                       )}
                     </div>
+                    
+                    {/* Text format display */}
+                    {result.data && !result.downloadedFile && (
+                      <div className="card">
+                        <div className="card-header bg-gradient d-flex justify-content-between align-items-center">
+                          <h5 className="mb-0 text-white">
+                            <i className="fas fa-file-alt me-2"></i>
+                            Generated Report
+                          </h5>
+                          <button 
+                            className="btn btn-sm btn-light"
+                            onClick={() => {
+                              const content = result.data?.content || JSON.stringify(result.data, null, 2);
+                              navigator.clipboard.writeText(content);
+                              alert('Report copied to clipboard!');
+                            }}
+                          >
+                            <i className="fas fa-copy me-1"></i>
+                            Copy
+                          </button>
+                        </div>
+                        <div className="card-body p-0">
+                          {result.data?.content ? (
+                            // Template-matched content with markdown rendering
+                            <div className="p-4 markdown-content">
+                              <ReactMarkdown 
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                  table: ({node, ...props}) => (
+                                    <table className="table table-bordered table-hover" {...props} />
+                                  ),
+                                  thead: ({node, ...props}) => (
+                                    <thead className="table-light" {...props} />
+                                  ),
+                                  th: ({node, ...props}) => (
+                                    <th className="fw-bold" {...props} />
+                                  ),
+                                  h1: ({node, ...props}) => (
+                                    <h3 className="mt-4 mb-3 text-primary" {...props} />
+                                  ),
+                                  h2: ({node, ...props}) => (
+                                    <h4 className="mt-3 mb-2 text-secondary" {...props} />
+                                  ),
+                                  h3: ({node, ...props}) => (
+                                    <h5 className="mt-3 mb-2" {...props} />
+                                  ),
+                                }}
+                              >
+                                {result.data.content}
+                              </ReactMarkdown>
+                            </div>
+                          ) : (
+                            // JSON format (legacy)
+                            <pre className="bg-light p-4 rounded-3 m-0">
+                              {JSON.stringify(result.data, null, 2)}
+                            </pre>
+                          )}
+                        </div>
+                        
+                        {/* Display metadata */}
+                        {result.metadata && (
+                          <div className="card-footer bg-light">
+                            <small className="text-muted">
+                              <strong>Metadata:</strong>
+                              <div className="mt-2">
+                                <span className="badge bg-secondary me-2">
+                                  Type: {result.metadata.document_type}
+                                </span>
+                                {result.metadata.images_uploaded > 0 && (
+                                  <span className="badge bg-info me-2">
+                                    Images: {result.metadata.images_uploaded}
+                                  </span>
+                                )}
+                                {result.metadata.template_used && (
+                                  <span className="badge bg-success me-2">
+                                    <i className="fas fa-check me-1"></i>
+                                    Template Applied
+                                  </span>
+                                )}
+                                {result.data?.word_count && (
+                                  <span className="badge bg-primary">
+                                    Words: {result.data.word_count}
+                                  </span>
+                                )}
+                              </div>
+                            </small>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

@@ -1,9 +1,10 @@
 """
 Event-related API routes
 """
-from flask import Blueprint, request, jsonify, current_app
+from flask import Blueprint, request, jsonify, current_app, send_file
 from werkzeug.utils import secure_filename
 from services.template_analyzer import TemplateAnalyzer
+from services.document_generator import DocumentGenerator
 import os
 
 bp = Blueprint('events', __name__, url_prefix='/api/events')
@@ -16,6 +17,7 @@ def generate_event_report():
         # Get form data
         event_description = request.form.get('event_description')
         document_type = request.form.get('document_type', 'event_plan')
+        output_format = request.form.get('output_format', 'text')  # 'text' or 'document'
         
         if not event_description:
             return jsonify({
@@ -69,6 +71,16 @@ def generate_event_report():
             template_analysis
         )
         
+        # Prepare metadata
+        metadata = {
+            'event_description': event_description,
+            'document_type': document_type,
+            'images_uploaded': len(image_paths),
+            'image_paths': image_paths,  # Pass image paths
+            'template_used': template_path is not None,
+            'template_format': template_analysis.get('format') if template_analysis else None
+        }
+        
         # Store in database
         db = current_app.db
         if db.is_connected():
@@ -79,22 +91,43 @@ def generate_event_report():
                 'image_paths': image_paths,
                 'template_used': template_path is not None,
                 'template_path': template_path,
+                'output_format': output_format,
                 'timestamp': None  # Will be set by MongoDB
             }
             # Save to MongoDB
             db.insert_one('events', event_doc)
         
-        return jsonify({
-            'success': True,
-            'data': result,
-            'metadata': {
-                'event_description': event_description,
-                'document_type': document_type,
-                'images_uploaded': len(image_paths),
-                'template_used': template_path is not None,
-                'template_format': template_analysis.get('format') if template_analysis else None
-            }
-        }), 200
+        # Return based on output format
+        if output_format == 'document':
+            # Generate DOCX document
+            doc_generator = DocumentGenerator()
+            doc_result = doc_generator.generate_event_document(
+                result, 
+                document_type, 
+                metadata
+            )
+            
+            if doc_result.get('success'):
+                # Send file as download
+                return send_file(
+                    doc_result['filepath'],
+                    as_attachment=True,
+                    download_name=doc_result['filename'],
+                    mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                )
+            else:
+                return jsonify({
+                    'success': False,
+                    'error': f"Document generation failed: {doc_result.get('error')}"
+                }), 500
+        
+        else:
+            # Return text format (JSON)
+            return jsonify({
+                'success': True,
+                'data': result,
+                'metadata': metadata
+            }), 200
     
     except Exception as e:
         print(f"Error in generate_event_report: {e}")

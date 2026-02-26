@@ -38,8 +38,8 @@ class Config:
     
     # File upload settings
     UPLOAD_FOLDER = 'uploads'
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
-    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'csv'}
+    MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100MB max file size (for multiple images + documents)
+    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'csv', 'docx', 'doc'}
 
 
 class DevelopmentConfig(Config):
