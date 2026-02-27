@@ -345,3 +345,18 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
+/* REMOVE WHITE LINE UNDER PROFILE DROPDOWN */
+.custom-navbar .dropdown-divider{
+  display:none !important;
+}
+
+/* also remove dropdown top border gap */
+.custom-navbar .dropdown-menu{
+  margin-top:0 !important;
+  border-top:none !important;
+}
+
+/* remove bootstrap default hr styling globally inside navbar */
+.custom-navbar hr{
+  display:none !important;
+}

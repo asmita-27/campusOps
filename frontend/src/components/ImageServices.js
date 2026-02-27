@@ -31,13 +31,13 @@ function ImageServices() {
       images.forEach((image) => {
         formData.append('images', image);
       });
-      
+
       // Add context if provided (for caption service)
       if (activeService === 'caption' && context.trim()) {
         formData.append('context', context.trim());
       }
 
-      const endpoint = activeService === 'caption' 
+      const endpoint = activeService === 'caption'
         ? 'http://localhost:8000/api/image/caption'
         : 'http://localhost:8000/api/image/ocr';
 
@@ -101,12 +101,12 @@ function ImageServices() {
                   <i className="fas fa-info-circle me-2"></i>
                   {activeService === 'caption' ? (
                     <span>
-                      <strong>Image Captioning:</strong> Uses Groq vision models to generate 
+                      <strong>Image Captioning:</strong> Uses Groq vision models to generate
                       factual descriptions of your event images.
                     </span>
                   ) : (
                     <span>
-                      <strong>OCR Service:</strong> Extracts and cleans text from images 
+                      <strong>OCR Service:</strong> Extracts and cleans text from images
                       using Tesseract OCR with AI-powered corrections.
                     </span>
                   )}
@@ -134,7 +134,7 @@ function ImageServices() {
                       </small>
                     </div>
                   )}
-                  
+
                   {/* Image Upload */}
                   <div className="form-group mb-4">
                     <label htmlFor="imageFiles" className="form-label fw-bold">
@@ -151,7 +151,7 @@ function ImageServices() {
                       required
                     />
                     <small className="form-text text-muted">
-                      {activeService === 'caption' 
+                      {activeService === 'caption'
                         ? 'Upload event photos to generate descriptive captions'
                         : 'Upload images containing text to extract content'
                       }
@@ -222,11 +222,18 @@ function ImageServices() {
                 {/* Results Display */}
                 {results && results.success && (
                   <div className="mt-5">
-                    <div className="alert alert-success" role="alert">
-                      <i className="fas fa-check-circle me-2"></i>
-                      Processing completed successfully! ({results.count} {results.count === 1 ? 'image' : 'images'} processed)
+                    <div className="success-banner">
+                      <div className="success-icon">
+                        <i className="fas fa-check"></i>
+                      </div>
+                      <div className="success-text">
+                        Processing completed successfully!
+                        <span>
+                          {/* ({results.count} {results.count === 1 ? 'image processed' : 'images processed'}) */}
+                        </span>
+                      </div>
                     </div>
-                    
+
                     {/* Individual Results */}
                     <div className="results-container">
                       {results.results && results.results.map((result, index) => (
@@ -246,34 +253,65 @@ function ImageServices() {
                                       <i className="fas fa-comment-dots me-2"></i>
                                       Generated Caption:
                                     </h6>
-                                    <div className="caption-output p-4 mb-3">
+                                    <div className="caption-output p-4 mb-0">
                                       <p className="caption-text mb-0">{result.caption}</p>
                                     </div>
-                                    <small className="text-muted">
-                                      <i className="fas fa-robot me-1"></i>
-                                      Model: {result.model}
-                                    </small>
                                   </div>
                                 )}
                                 {activeService === 'ocr' && result.text && (
                                   <div>
-                                    <h6 className="text-muted mb-2">
-                                      <i className="fas fa-align-left me-2"></i>
-                                      Extracted Text:
-                                    </h6>
-                                    {result.has_text ? (
-                                      <div className="bg-light p-3 rounded">
-                                        <pre className="mb-0" style={{whiteSpace: 'pre-wrap', fontFamily: 'inherit'}}>
-                                          {result.text}
-                                        </pre>
-                                      </div>
-                                    ) : (
+                                    <h5 className="ocr-title">📄 Extracted Document Text</h5>
+
+                                    {result.has_text ? (() => {
+
+                                      const lines = result.text.split('\n');
+
+                                      // Detect ASCII table rows
+                                      const tableRows = lines.filter(line =>
+                                        line.includes('|') && !line.includes('---')
+                                      );
+
+                                      const normalLines = lines.filter(line =>
+                                        !line.includes('|')
+                                      );
+
+                                      return (
+                                        <div className="ocr-document">
+
+                                          {/* NORMAL TEXT */}
+                                          {normalLines.map((line, i) =>
+                                            line.trim() !== '' && <p key={i}>{line}</p>
+                                          )}
+
+                                          {/* TABLE (if detected) */}
+                                          {tableRows.length > 0 && (
+                                            <div className="ocr-table-wrapper">
+                                              <table className="ocr-table">
+                                                <tbody>
+                                                  {tableRows.map((row, i) => {
+                                                    const cells = row
+                                                      .split('|')
+                                                      .map(c => c.trim())
+                                                      .filter(c => c !== '');
+
+                                                    return (
+                                                      <tr key={i}>
+                                                        {cells.map((cell, j) => (
+                                                          <td key={j}>{cell}</td>
+                                                        ))}
+                                                      </tr>
+                                                    );
+                                                  })}
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                          )}
+
+                                        </div>
+                                      );
+                                    })() : (
                                       <p className="text-muted fst-italic">No text detected in this image.</p>
                                     )}
-                                    <small className="text-muted mt-2 d-block">
-                                      <i className="fas fa-robot me-1"></i>
-                                      Model: {result.model}
-                                    </small>
                                   </div>
                                 )}
                               </>
