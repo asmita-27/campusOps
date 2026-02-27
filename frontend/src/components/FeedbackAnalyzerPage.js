@@ -2,12 +2,13 @@ import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import FeedbackAnalyzer from './FeedbackAnalyzer';
+import LoginPrompt from './LoginPrompt';
 import './FeaturePages.css';
 
-function FeedbackAnalyzerPage() {
+function FeedbackAnalyzerPage({ user, onLogout }) {
   return (
     <div className="feature-page feature-page-light">
-      <Navbar />
+      <Navbar user={user} onLogout={onLogout} />
       <main className="feature-page-inner">
         {/* Hero */}
         <section className="feature-section" style={{ marginTop: '96px' }}>
@@ -95,7 +96,11 @@ function FeedbackAnalyzerPage() {
         <section className="feature-section" id="feedback-tool">
           <div className="feature-tool-shell">
             <div className="feature-tool-card">
-              <FeedbackAnalyzer />
+              {user ? (
+                <FeedbackAnalyzer />
+              ) : (
+                <LoginPrompt featureName="Feedback Analyzer" />
+              )}
             </div>
           </div>
         </section>

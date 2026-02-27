@@ -2,12 +2,13 @@ import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ImageServices from './ImageServices';
+import LoginPrompt from './LoginPrompt';
 import './FeaturePages.css';
 
-function ImageServicesPage() {
+function ImageServicesPage({ user, onLogout }) {
   return (
     <div className="feature-page feature-page-light">
-      <Navbar />
+      <Navbar user={user} onLogout={onLogout} />
 
       <main className="feature-page-inner">
 
@@ -105,7 +106,11 @@ function ImageServicesPage() {
         <section className="feature-section feature-tool-section" id="image-services-tool">
           <div className="feature-wide-container">
             <div className="feature-tool-wrapper tool-fullwidth-reset">
-              <ImageServices />
+              {user ? (
+                <ImageServices />
+              ) : (
+                <LoginPrompt featureName="Image Services" />
+              )}
             </div>
           </div>
         </section>

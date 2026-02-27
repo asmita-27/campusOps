@@ -4,6 +4,7 @@ import './ImageServices.css';
 function ImageServices() {
   const [activeService, setActiveService] = useState('caption');
   const [images, setImages] = useState([]);
+  const [context, setContext] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
@@ -30,11 +31,15 @@ function ImageServices() {
       images.forEach((image) => {
         formData.append('images', image);
       });
+      
+      // Add context if provided (for caption service)
+      if (activeService === 'caption' && context.trim()) {
+        formData.append('context', context.trim());
+      }
 
-      // TODO: Replace with actual API endpoint
       const endpoint = activeService === 'caption' 
-        ? 'http://localhost:8000/caption-images'
-        : 'http://localhost:8000/ocr-images';
+        ? 'http://localhost:8000/api/image/caption'
+        : 'http://localhost:8000/api/image/ocr';
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -108,6 +113,28 @@ function ImageServices() {
                 </div>
 
                 <form onSubmit={handleSubmit}>
+                  {/* Context Input (for caption service) */}
+                  {activeService === 'caption' && (
+                    <div className="form-group mb-4">
+                      <label htmlFor="contextInput" className="form-label fw-bold">
+                        <i className="fas fa-comment-dots me-2"></i>
+                        Context (Optional)
+                      </label>
+                      <textarea
+                        className="form-control"
+                        id="contextInput"
+                        rows="3"
+                        placeholder="e.g., 'This is from our tech workshop on AI', 'Annual sports day event', 'Guest lecture by industry expert'..."
+                        value={context}
+                        onChange={(e) => setContext(e.target.value)}
+                      />
+                      <small className="form-text text-muted">
+                        <i className="fas fa-lightbulb me-1"></i>
+                        Help the AI understand the context for more relevant captions
+                      </small>
+                    </div>
+                  )}
+                  
                   {/* Image Upload */}
                   <div className="form-group mb-4">
                     <label htmlFor="imageFiles" className="form-label fw-bold">
@@ -193,23 +220,72 @@ function ImageServices() {
                 )}
 
                 {/* Results Display */}
-                {results && (
+                {results && results.success && (
                   <div className="mt-5">
                     <div className="alert alert-success" role="alert">
                       <i className="fas fa-check-circle me-2"></i>
-                      Processing completed successfully!
+                      Processing completed successfully! ({results.count} {results.count === 1 ? 'image' : 'images'} processed)
                     </div>
-                    <div className="card mt-4">
-                      <div className="card-header">
-                        <h5 className="mb-0 text-white">
-                          {activeService === 'caption' ? 'Generated Captions' : 'Extracted Text'}
-                        </h5>
-                      </div>
-                      <div className="card-body p-0">
-                        <pre className="bg-light p-4 rounded-3 m-0">
-                          {JSON.stringify(results, null, 2)}
-                        </pre>
-                      </div>
+                    
+                    {/* Individual Results */}
+                    <div className="results-container">
+                      {results.results && results.results.map((result, index) => (
+                        <div key={index} className="card mt-3 shadow-sm">
+                          <div className="card-header bg-info text-white">
+                            <h6 className="mb-0">
+                              <i className="fas fa-image me-2"></i>
+                              {result.image}
+                            </h6>
+                          </div>
+                          <div className="card-body">
+                            {result.success ? (
+                              <>
+                                {activeService === 'caption' && result.caption && (
+                                  <div>
+                                    <h6 className="text-muted mb-3">
+                                      <i className="fas fa-comment-dots me-2"></i>
+                                      Generated Caption:
+                                    </h6>
+                                    <div className="caption-output p-4 mb-3">
+                                      <p className="caption-text mb-0">{result.caption}</p>
+                                    </div>
+                                    <small className="text-muted">
+                                      <i className="fas fa-robot me-1"></i>
+                                      Model: {result.model}
+                                    </small>
+                                  </div>
+                                )}
+                                {activeService === 'ocr' && result.text && (
+                                  <div>
+                                    <h6 className="text-muted mb-2">
+                                      <i className="fas fa-align-left me-2"></i>
+                                      Extracted Text:
+                                    </h6>
+                                    {result.has_text ? (
+                                      <div className="bg-light p-3 rounded">
+                                        <pre className="mb-0" style={{whiteSpace: 'pre-wrap', fontFamily: 'inherit'}}>
+                                          {result.text}
+                                        </pre>
+                                      </div>
+                                    ) : (
+                                      <p className="text-muted fst-italic">No text detected in this image.</p>
+                                    )}
+                                    <small className="text-muted mt-2 d-block">
+                                      <i className="fas fa-robot me-1"></i>
+                                      Model: {result.model}
+                                    </small>
+                                  </div>
+                                )}
+                              </>
+                            ) : (
+                              <div className="alert alert-danger mb-0">
+                                <i className="fas fa-exclamation-triangle me-2"></i>
+                                {result.error || 'Processing failed'}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}

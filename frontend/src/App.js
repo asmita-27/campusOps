@@ -25,6 +25,9 @@ import ImageServicesPage from './components/ImageServicesPage';
 import EventReportGenerator from './components/EventReportGenerator';
 import FeedbackAnalyzer from './components/FeedbackAnalyzer';
 import ImageServices from './components/ImageServices';
+import DataManagement from './components/DataManagement';
+import BudgetSuggester from './components/BudgetSuggester';
+import MOUGenerator from './components/MOUGenerator';
 
 // Home page component (public)
 function HomePage({ user }) {
@@ -109,16 +112,52 @@ function App() {
             } 
           />
 
-          {/* Feature detail pages (public) */}
-          <Route path="/event-report-generator" element={<EventReportGeneratorPage />} />
-          <Route path="/feedback-analyzer" element={<FeedbackAnalyzerPage />} />
-          <Route path="/image-services" element={<ImageServicesPage />} />
+          {/* Feature detail pages (public but tools require auth) */}
+          <Route path="/event-report-generator" element={<EventReportGeneratorPage user={user} onLogout={handleLogout} />} />
+          <Route path="/feedback-analyzer" element={<FeedbackAnalyzerPage user={user} onLogout={handleLogout} />} />
+          <Route path="/image-services" element={<ImageServicesPage user={user} onLogout={handleLogout} />} />
           
           {/* Protected Routes */}
           <Route 
             path="/dashboard" 
             element={
               user ? <Dashboard user={user} onLogout={handleLogout} /> : <Navigate to="/login" />
+            } 
+          />
+          <Route 
+            path="/management" 
+            element={
+              user ? (
+                <>
+                  <Navbar user={user} onLogout={handleLogout} />
+                  <DataManagement />
+                  <Footer />
+                </>
+              ) : <Navigate to="/login" />
+            } 
+          />
+          <Route 
+            path="/budget-suggester" 
+            element={
+              user ? (
+                <>
+                  <Navbar user={user} onLogout={handleLogout} />
+                  <BudgetSuggester />
+                  <Footer />
+                </>
+              ) : <Navigate to="/login" />
+            } 
+          />
+          <Route 
+            path="/mou-generator" 
+            element={
+              user ? (
+                <>
+                  <Navbar user={user} onLogout={handleLogout} />
+                  <MOUGenerator />
+                  <Footer />
+                </>
+              ) : <Navigate to="/login" />
             } 
           />
           

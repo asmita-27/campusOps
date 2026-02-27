@@ -1,0 +1,263 @@
+/* Budget Suggester Styles */
+
+.budget-suggester-section {
+  background: linear-gradient(135deg, #fa8bff 0%, #2bd2ff 50%, #2bff88 100%);
+  min-height: 100vh;
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.budget-suggester-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.budget-suggester-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.budget-suggester-section .display-5 {
+  background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 3rem;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.budget-suggester-section .lead {
+  color: white;
+  font-size: 1.3rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.budget-suggester-section .card {
+  border: none;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.budget-suggester-section .card-body {
+  padding: 3rem;
+}
+
+.budget-suggester-section .form-label {
+  color: #2d3748;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.budget-suggester-section .form-control {
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.budget-suggester-section .form-control:focus {
+  border-color: #fa8bff;
+  box-shadow: 0 0 0 3px rgba(250, 139, 255, 0.1);
+  outline: none;
+}
+
+.budget-suggester-section .btn-primary {
+  background: linear-gradient(135deg, #fa8bff 0%, #2bd2ff 100%);
+  border: none;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.budget-suggester-section .btn-primary:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(250, 139, 255, 0.4);
+}
+
+.budget-suggester-section .btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Total Budget Card */
+.total-budget-card {
+  background: linear-gradient(135deg, #fa8bff 0%, #2bd2ff 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+  box-shadow: 0 10px 30px rgba(250, 139, 255, 0.3);
+}
+
+.total-budget-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.budget-amount {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Suggestion Content */
+.suggestion-content {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 2px solid #e9ecef;
+}
+
+.suggestion-content h4 {
+  color: #2d3748;
+  font-weight: 700;
+  border-bottom: 3px solid #fa8bff;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Markdown Content Styling */
+.markdown-content {
+  line-height: 1.8;
+  color: #4a5568;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  color: #2d3748;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.markdown-content h1 {
+  font-size: 2rem;
+  border-bottom: 3px solid #fa8bff;
+  padding-bottom: 0.5rem;
+}
+
+.markdown-content h2 {
+  font-size: 1.5rem;
+  color: #fa8bff;
+}
+
+.markdown-content h3 {
+  font-size: 1.25rem;
+  color: #2bd2ff;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-content li {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content p {
+  margin-bottom: 1rem;
+}
+
+.markdown-content strong {
+  color: #2d3748;
+  font-weight: 700;
+}
+
+.markdown-content code {
+  background: #edf2f7;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  color: #d63384;
+}
+
+.markdown-content pre {
+  background: #2d3748;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid #fa8bff;
+  padding-left: 1rem;
+  margin-left: 0;
+  color: #718096;
+  font-style: italic;
+}
+
+/* Alert Styling */
+.budget-suggester-section .alert {
+  border-radius: 12px;
+  border: none;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.budget-suggester-section .alert-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  color: #155724;
+}
+
+.budget-suggester-section .alert-danger {
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+  color: #721c24;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .budget-suggester-section .card-body {
+    padding: 1.5rem;
+  }
+
+  .budget-suggester-section .display-5 {
+    font-size: 2rem;
+  }
+
+  .budget-amount {
+    font-size: 2.5rem;
+  }
+
+  .suggestion-content {
+    padding: 1.5rem;
+  }
+}

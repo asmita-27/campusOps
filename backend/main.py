@@ -12,7 +12,7 @@ import os
 from config import Config
 from database.mongodb_client import MongoDBClient
 from services.llm_service import LLMService
-from routes import event_routes, feedback_routes, rag_routes, auth_routes
+from routes import event_routes, feedback_routes, rag_routes, auth_routes, image_routes, management_routes, budget_routes, mou_routes
 
 # Load environment variables
 load_dotenv()
@@ -44,6 +44,10 @@ app.register_blueprint(event_routes.bp)
 app.register_blueprint(feedback_routes.bp)
 app.register_blueprint(rag_routes.bp)
 app.register_blueprint(auth_routes.bp)
+app.register_blueprint(image_routes.bp)
+app.register_blueprint(management_routes.bp)
+app.register_blueprint(budget_routes.bp)
+app.register_blueprint(mou_routes.bp)
 
 
 @app.route('/', methods=['GET'])

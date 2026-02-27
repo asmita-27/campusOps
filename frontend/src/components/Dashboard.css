@@ -135,6 +135,39 @@
   letter-spacing: 0.5px;
 }
 
+/* Stat Manage Button */
+.stat-manage-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: 2px solid currentColor;
+  background: transparent;
+  color: currentColor;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.stat-card:hover .stat-manage-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stat-manage-btn:hover {
+  background: currentColor;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
 /* Quick Actions Section */
 .quick-actions-section {
   background: white;

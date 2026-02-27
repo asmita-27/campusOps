@@ -2,12 +2,13 @@ import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import EventReportGenerator from './EventReportGenerator';
+import LoginPrompt from './LoginPrompt';
 import './FeaturePages.css';
 
-function EventReportGeneratorPage() {
+function EventReportGeneratorPage({ user, onLogout }) {
   return (
     <div className="feature-page feature-page-light">
-      <Navbar />
+      <Navbar user={user} onLogout={onLogout} />
       <main className="feature-page-inner">
         {/* Hero */}
         <section className="feature-section" style={{ marginTop: '96px' }}>
@@ -106,7 +107,11 @@ function EventReportGeneratorPage() {
 
     {/* Wide SaaS wrapper (same as Feedback page) */}
     <div className="feature-tool-wrapper tool-fullwidth-reset">
-      <EventReportGenerator />
+      {user ? (
+        <EventReportGenerator />
+      ) : (
+        <LoginPrompt featureName="Event Report Generator" />
+      )}
     </div>
 
   </div>
