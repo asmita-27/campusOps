@@ -91,7 +91,16 @@ def login():
             }), 401
         
         # Verify password
-        if club['password'] != password:
+        stored_password = str(club['password']).strip()
+        input_password = str(password).strip()
+        
+        # Debug logging (remove in production)
+        print(f"🔐 Login attempt for: {email}")
+        print(f"   Stored password: '{stored_password}' (len: {len(stored_password)})")
+        print(f"   Input password: '{input_password}' (len: {len(input_password)})")
+        print(f"   Match: {stored_password == input_password}")
+        
+        if stored_password != input_password:
             return jsonify({
                 'success': False,
                 'error': 'Invalid email or password'
